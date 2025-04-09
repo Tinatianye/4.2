@@ -140,8 +140,6 @@ with right_col:
 
     st.plotly_chart(fig, use_container_width=True)
 
-        selected_date = pd.to_datetime(forecast_month + "-01")
-
     selected_row = df_res[df_res["Date"] == selected_date].iloc[0] if selected_date in df_res["Date"].values else df_res.iloc[-1]
 
     china_hrc = selected_row.get("China HRC (FOB, $/t)_forecast", np.nan)

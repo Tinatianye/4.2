@@ -47,6 +47,11 @@ with left_col:
     country = st.multiselect("Please choose country", ["China", "Japan"], ["China", "Japan"])
 
 with right_col:
+    # --- Month Selector: SELECT FIRST ---
+    forecast_month = st.selectbox("Select a forecast month", df_res["Date"].dt.strftime("%Y-%m").tolist())
+    selected_date = pd.to_datetime(forecast_month + "-01")
+    selected_row = df_res[df_res["Date"] == selected_date].iloc[0] if selected_date in df_res["Date"].values else df_res.iloc[-1]
+
     # Modeling
     final_df_differenced = final_df.diff().dropna()
     model = VAR(final_df_differenced)
@@ -135,11 +140,7 @@ with right_col:
 
     st.plotly_chart(fig, use_container_width=True)
 
-    # --- Month Selector + Show tables below chart ---
-    forecast_month = st.selectbox("Select a forecast month", df_res["Date"].dt.strftime("%Y-%m").tolist())
-    selected_date = pd.to_datetime(forecast_month + "-01")
-    selected_row = df_res[df_res["Date"] == selected_date].iloc[0] if selected_date in df_res["Date"].values else df_res.iloc[-1]
-    selected_date = pd.to_datetime(forecast_month + "-01")
+        selected_date = pd.to_datetime(forecast_month + "-01")
 
     selected_row = df_res[df_res["Date"] == selected_date].iloc[0] if selected_date in df_res["Date"].values else df_res.iloc[-1]
 

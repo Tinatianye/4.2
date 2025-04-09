@@ -122,12 +122,13 @@ with right_col:
 
     fig.update_layout(
         title=dict(
-                        x=0.5,
+            text=f"Forecasting HRC Prices - Selected Month: {forecast_month}<br><sub>with Historical Data + Upside/Downside</sub>",
+            x=0.5,
             xanchor="center",
             y=0.9,
             yanchor="top",
             font=dict(size=22, color='#222', family='Arial Black')
-        ),),
+        ),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)'
     )

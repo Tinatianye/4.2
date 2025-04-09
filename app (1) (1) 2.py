@@ -119,6 +119,8 @@ with right_col:
                 fillcolor='rgba(0,100,80,0.2)' if c == "China" else 'rgba(255,0,0,0.2)',
                 line=dict(color='rgba(255,255,255,0)'),
                 hoverinfo="skip",
+                hovertemplate="Date: %{x|%Y-%m-%d}<br>HRC Price: %{y:.2f}<extra></extra>"
+))
                 showlegend=True,
                 name=f"{c} Upside/Downside"
             ))

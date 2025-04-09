@@ -47,11 +47,6 @@ with left_col:
     country = st.multiselect("Please choose country", ["China", "Japan"], ["China", "Japan"])
 
 with right_col:
-    # --- Month Selector: SELECT FIRST ---
-    forecast_month = st.selectbox("Select a forecast month", df_res["Date"].dt.strftime("%Y-%m").tolist())
-    selected_date = pd.to_datetime(forecast_month + "-01")
-    selected_row = df_res[df_res["Date"] == selected_date].iloc[0] if selected_date in df_res["Date"].values else df_res.iloc[-1]
-
     # Modeling
     final_df_differenced = final_df.diff().dropna()
     model = VAR(final_df_differenced)
@@ -125,25 +120,30 @@ with right_col:
                 name=f"{c} Upside/Downside"
             ))
 
+
+
     fig.update_layout(
         title=dict(
-            text=f"Forecasting HRC Prices - Selected Month: {forecast_month}<br><sub>with Historical Data + Upside/Downside</sub>",
+            text="Forecasting HRC Prices<br><sub>with Historical Data + Upside/Downside</sub>",
             x=0.5,
-            xanchor="center",
+            xanchor='center',
             y=0.9,
-            yanchor="top",
+            yanchor='top',
             font=dict(size=22, color='#222', family='Arial Black')
         ),
+        xaxis_title="Date",
+        height=500,
+        legend=dict(orientation="h", x=0.5, xanchor="center"),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)'
     )
 
     st.plotly_chart(fig, use_container_width=True)
 
-    selected_row = df_res[df_res["Date"] == selected_date].iloc[0] if selected_date in df_res["Date"].values else df_res.iloc[-1]
-
-    china_hrc = selected_row.get("China HRC (FOB, $/t)_forecast", np.nan)
-    japan_hrc = selected_row.get("Japan HRC (FOB, $/t)_forecast", np.nan)
+    # --- Show tables below chart ---
+    last_row = df_res.iloc[-1]
+    china_hrc = last_row.get("China HRC (FOB, $/t)_forecast", np.nan)
+    japan_hrc = last_row.get("Japan HRC (FOB, $/t)_forecast", np.nan)
 
     china_columns = [
         'HRC FOB China', 'Sea Freight', 'Basic Customs Duty (%)',

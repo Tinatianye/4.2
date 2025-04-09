@@ -1,8 +1,8 @@
-streamlit
 pandas
 numpy
-matplotlib
-seaborn
-statsmodels
+streamlit
 plotly
-python-dateutil
+scikit-learn
+statsmodels
+matplotlib
+openpyxl  # 如果你还用 Excel 数据

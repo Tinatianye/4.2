@@ -122,19 +122,18 @@ with right_col:
 
     fig.update_layout(
         title=dict(
-            text=f"Forecasting HRC Prices - Selected Month: {forecast_month}<br><sub>with Historical Data + Upside/Downside</sub>",
-            text=f"Forecasting HRC Prices - Selected Month: {forecast_month}<br><sub>with Historical Data + Upside/Downside</sub>",
-        xaxis_title="Date",
-        height=500,
-        legend=dict(orientation="h", x=0.5, xanchor="center"),
+                        x=0.5,
+            xanchor="center",
+            y=0.9,
+            yanchor="top",
+            font=dict(size=22, color='#222', family='Arial Black')
+        ),),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)'
     )
 
     st.plotly_chart(fig, use_container_width=True)
 
-    # --- Month Selector + Show tables below chart ---
-    # User selects month from forecasted range
     # --- Month Selector + Show tables below chart ---
     forecast_month = st.selectbox("Select a forecast month", df_res["Date"].dt.strftime("%Y-%m").tolist())
     selected_date = pd.to_datetime(forecast_month + "-01")
